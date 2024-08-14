@@ -30,6 +30,7 @@ public class MenuUIHandler : MonoBehaviour
     {
         if (playerName.text != null && playerName.text != "Enter name")
         {
+            DataManager.Instance.playerName = playerName.text;
             SceneManager.LoadScene(1);
         }
 
@@ -38,6 +39,7 @@ public class MenuUIHandler : MonoBehaviour
     // exit the game
     public void ExitGame()
     {
+        DataManager.Instance.SaveScore();
 # if UNITY_EDITOR
         EditorApplication.ExitPlaymode();
 # else
@@ -50,8 +52,7 @@ public class MenuUIHandler : MonoBehaviour
         // load previous high score with player name if exists
         if (DataManager.Instance.highScore != 0)
         {
-            highScoreText.SetText("High Score: " + DataManager.Instance.playerName + " : " +
-                DataManager.Instance.highScore);
+            highScoreText.SetText($"High Score: {DataManager.Instance.highScorePlayerName} : {DataManager.Instance.highScore}");
         }
         else
         {
