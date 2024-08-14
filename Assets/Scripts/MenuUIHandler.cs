@@ -11,12 +11,14 @@ public class MenuUIHandler : MonoBehaviour
     //public InputField playerName;
     public TMP_InputField playerName;
     public TextMeshProUGUI highScoreText;
+    public GameObject namePromptText;
 
     // Start is called before the first frame update
     void Start()
     {
         // load previous high score with player name
         getHighScore();
+        //GetName();
     }
 
     // Update is called once per frame
@@ -28,10 +30,13 @@ public class MenuUIHandler : MonoBehaviour
     // start the game if player name entered
     public void StartGame()
     {
-        if (playerName.text != null && playerName.text != "Enter name")
+        if (playerName.text != "" && playerName.text != "Enter name")
         {
             DataManager.Instance.playerName = playerName.text;
             SceneManager.LoadScene(1);
+        } else
+        {
+            namePromptText.SetActive(true);
         }
 
     }
@@ -57,6 +62,14 @@ public class MenuUIHandler : MonoBehaviour
         else
         {
             highScoreText.SetText("High Score: 0");
+        }
+    }
+
+    void GetName()
+    {
+        if (DataManager.Instance.playerName != "")
+        {
+            playerName.text = DataManager.Instance.playerName;
         }
     }
 }
